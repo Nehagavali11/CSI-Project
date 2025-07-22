@@ -74,7 +74,8 @@ def load_data(csv_path):
     """Loads the training data and processes labels."""
     df = pd.read_csv(csv_path)
     label_cols = ['healthy', 'multiple_diseases', 'rust', 'scab']
-    df['label'] = df[label_cols].idxmax(axis=1)
+    # Corrected: Use label_cols list, not string 'label_cols'
+    df['label'] = df[label_cols].idxmax(axis=1) 
     return df
 
 @st.cache_resource
@@ -141,6 +142,17 @@ st.markdown("""
     .css-1d391kg, .css-xq1lnh, .css-1dp5xrc { /* Adjusting general text color for inputs/text areas */
         color: #333333;
     }
+
+    /* Force specific text elements to black */
+    /* For st.info, st.success, st.error messages */
+    .stAlert p {
+        color: black !important; /* Force black text */
+    }
+
+    /* For labels of input widgets (slider, text_area, text_input) */
+    label {
+        color: black !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -196,6 +208,7 @@ with tab1:
         # Statistical Summary
         st.subheader("Dataset Summary")
         st.write(df.describe())
+        # The text "Total Images: ... Number of Categories: ..." will be black due to .stAlert p CSS
         st.info(f"Total Images: **{len(df)}**\n\nNumber of Categories: **{len(class_names)}**")
 
     st.markdown("---")
@@ -209,7 +222,8 @@ with tab1:
             sample_id = df[df['label'] == label].iloc[0]['image_id']
             image_path = os.path.join(IMAGE_DIR, f"{sample_id}.jpg")
             if os.path.exists(image_path):
-                st.image(image_path, use_column_width=True, caption=f"Example of {label}")
+                # Changed use_column_width to use_container_width
+                st.image(image_path, use_container_width=True, caption=f"Example of {label}")
             else:
                 st.warning(f"Image for {label} not found.")
 
@@ -227,7 +241,8 @@ with tab2:
         with col1:
             st.subheader("Your Uploaded Image")
             image = Image.open(uploaded_file)
-            st.image(image, caption="Uploaded Leaf", use_column_width=True)
+            # Changed use_column_width to use_container_width
+            st.image(image, caption="Uploaded Leaf", use_container_width=True)
 
         # Process and predict
         with st.spinner('Analyzing the leaf...'):
@@ -245,6 +260,7 @@ with tab2:
             predicted_class = prediction[0]
             confidence = probabilities.max() * 100
 
+            # The text "Status: ..." will be black due to .stAlert p CSS
             if predicted_class == 'healthy':
                 st.success(f"**Status: {predicted_class.title()}** (Confidence: {confidence:.2f}%)")
                 st.balloons()
@@ -279,9 +295,12 @@ with tab3:
 
     with col1:
         st.subheader("⭐ Rate This Application")
+        # Label "How would you rate your experience?" will be black due to label CSS
         rating = st.slider("How would you rate your experience?", 1, 5, 3)
+        # Label "Share your feedback or suggestions:" will be black due to label CSS
         feedback_text = st.text_area("Share your feedback or suggestions:")
         if st.button("Submit Feedback"):
+            # The text "Thank you for your feedback! We appreciate it." will be black due to .stAlert p CSS
             st.success("Thank you for your feedback! We appreciate it.")
             # In a real app, you would save this feedback to a database or file.
             
@@ -290,6 +309,7 @@ with tab3:
         st.markdown("Ask a general question about plant care or diseases.")
         
         if gemini_model:
+            # Label "Your question:" will be black due to label CSS
             user_query = st.text_input("Your question:", placeholder="e.g., How do I prevent rust on my plants?")
 
             if st.button("Ask AI Assistant"):
@@ -310,3 +330,5 @@ with tab3:
                     st.warning("Please enter a question.")
         else:
             st.info("AI Assistant is currently unavailable. Please check the API key configuration.")
+
+    st.markdown("<p style='text-align: center; color: black; margin-top: 50px;'>App developed by Neha Gavali</p>", unsafe_allow_html=True)

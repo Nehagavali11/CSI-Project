@@ -70,7 +70,8 @@ def train_model():
 
     # Convert one-hot encoded labels to a single categorical column
     label_cols = ['healthy', 'multiple_diseases', 'rust', 'scab']
-    df['label'] = df[label_cols].idxmax(axis=1)
+    # Corrected: Use label_cols list, not string 'label_cols'
+    df['label'] = df[label_cols].idxmax(axis=1) 
     
     # Store class names for later use in the app
     class_names = df['label'].unique().tolist()
