@@ -23,7 +23,8 @@ st.set_page_config(
 API_KEY = "AIzaSyCCG8qJdwQHPVnaBXkwU5xl8B_xLppBVrI" 
 try:
     genai.configure(api_key=API_KEY)
-    gemini_model = genai.GenerativeModel('gemini-pro')
+    # Changed 'gemini-pro' to 'gemini-1.5-flash' for broader availability
+    gemini_model = genai.GenerativeModel('gemini-1.5-flash') 
 except Exception as e:
     st.error(f"Error configuring Gemini API: {e}. The AI Assistant will not be available.")
     gemini_model = None
@@ -55,10 +56,7 @@ def extract_features(image_array, img_size=(224, 224)):
     # 2. Texture Features (GLCM)
     gray_img = cv2.cvtColor(img_resized, cv2.COLOR_BGR2GRAY)
     gray_img_int = gray_img.astype(np.uint8)
-    glcm = cv2.cvtColor(img_resized, cv2.COLOR_BGR2GRAY)
-    glcm = np.uint8(glcm) # convert to uint8
-    glcm = cv2.calcHist([glcm], [0], None, [256], [0, 256])
-
+    
     from skimage.feature import graycomatrix, graycoprops
     glcm = graycomatrix(gray_img_int, distances=[5], angles=[0], levels=256, symmetric=True, normed=True)
     contrast = graycoprops(glcm, 'contrast')[0, 0]
@@ -97,31 +95,37 @@ st.markdown("""
     }
     .stApp {
         background: #F0F2F6;
+        color: #333333; /* Darker text for better contrast on light background */
     }
     h1 {
         color: #1E8449;
         text-align: center;
         font-weight: bold;
     }
+    h2, h3, h4, h5, h6 {
+        color: #2C3E50; /* A darker shade for headings */
+    }
     /* Style for tabs */
     .stTabs [data-baseweb="tab-list"] {
-		gap: 24px;
+        gap: 24px;
         border-bottom: 2px solid #D5DBDB;
-	}
-	.stTabs [data-baseweb="tab"] {
-		height: 50px;
+    }
+    .stTabs [data-baseweb="tab"] {
+        height: 50px;
         white-space: pre-wrap;
-		background-color: transparent;
-		border-radius: 4px 4px 0px 0px;
-		gap: 1px;
-		padding-top: 10px;
-		padding-bottom: 10px;
+        background-color: transparent;
+        border-radius: 4px 4px 0px 0px;
+        gap: 1px;
+        padding-top: 10px;
+        padding-bottom: 10px;
         font-weight: bold;
-	}
-	.stTabs [aria-selected="true"] {
-  		background-color: #D5F5E3;
+        color: #566573; /* A medium dark grey for inactive tabs */
+    }
+    .stTabs [aria-selected="true"] {
+        background-color: #D5F5E3;
         border-bottom: 2px solid #1E8449;
-	}
+        color: #1E8449; /* Green for active tab text */
+    }
     /* Custom button style */
     .stButton>button {
         border: 2px solid #1E8449;
@@ -133,13 +137,17 @@ st.markdown("""
         border-color: #145A32;
         color: #145A32;
     }
+    /* General text color for Streamlit components */
+    .css-1d391kg, .css-xq1lnh, .css-1dp5xrc { /* Adjusting general text color for inputs/text areas */
+        color: #333333;
+    }
 </style>
 """, unsafe_allow_html=True)
 
 
 # --- Main Application ---
 st.title("🌿 Plant Leaf Health Classifier")
-st.markdown("<h4 style='text-align: center; color: grey;'>Using Traditional Machine Learning & Handcrafted Features</h4>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: center; color: #566573;'>Using Traditional Machine Learning & Handcrafted Features</h4>", unsafe_allow_html=True)
 st.markdown("---")
 
 
