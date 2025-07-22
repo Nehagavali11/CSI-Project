@@ -3,7 +3,7 @@
 This project delivers a **Streamlit** web application for classifying plant leaf health. It uses traditional machine learning with handcrafted image features and integrates an **AI assistant** powered by Google's Gemini model.
 
 ---
-## Live App : - 
+## Live App : - https://plant-species-classification-csi.streamlit.app
 
 ---
 
@@ -52,3 +52,7 @@ This project delivers a **Streamlit** web application for classifying plant leaf
    ```
    $ streamlit run streamlit_app.py
    ```
+---
+
+![Plant Health Classifier · Streamlit_page-0001](https://github.com/user-attachments/assets/8776fbef-6241-44a3-9940-1f4f52631533)
+
