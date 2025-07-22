@@ -56,3 +56,16 @@ This project delivers a **Streamlit** web application for classifying plant leaf
 
 ![Plant Health Classifier · Streamlit_page-0001](https://github.com/user-attachments/assets/8776fbef-6241-44a3-9940-1f4f52631533)
 
+![Plant Health Classifier · Streamlit_page-0002](https://github.com/user-attachments/assets/5f02ee15-0bff-43b7-86b1-06e0f6901032)
+
+![Plant Health Classifier · Streamlit1_page-0003](https://github.com/user-attachments/assets/3b682b1f-0d3c-4723-847d-adc492d7709a)
+
+![Plant Health Classifier · Streamlit1_page-0004](https://github.com/user-attachments/assets/e83a671d-035e-432c-9879-2fdc56a36af9)
+
+![Plant Health Classifier · Streamlit2_page-0005](https://github.com/user-attachments/assets/259f7be7-7550-4256-a813-2bfb5299aa1c)
+
+![Plant Health Classifier · Streamlit2_page-0006](https://github.com/user-attachments/assets/5ea870f7-c5d9-4005-9628-209efc05c06d)
+
+
+
+
